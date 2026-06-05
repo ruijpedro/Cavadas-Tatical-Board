@@ -94,7 +94,8 @@ function App(){
   const [tab, setTab] = useState('quadro')
   const [modalidade, setModalidade] = useState('futsal')
   
-  const [configTreino, setConfigTreino] = useState({ tipoTreino: 'campo', atacantes: 7, defensores: 6, guardaRedes: true })const [players, setPlayers] = useState(posicoesBase.futsal)
+  const [configTreino, setConfigTreino] = useState({ tipoTreino: 'campo', atacantes: 7, defensores: 6, guardaRedes: true })
+  const [players, setPlayers] = useState(posicoesBase.futsal)
   const [ball, setBall] = useState({ x:50, y:50 })
   const [mode, setMode] = useState('move')
   const [paths, setPaths] = useState([])
