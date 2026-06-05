@@ -458,3 +458,93 @@ nav {
   font-size: 12px;
   margin: 8px 0 0;
 }
+
+
+/* =========================================================
+   V5.2 — Esquemas de treino: campo e guarda-redes
+   Futebol + Futsal
+   ========================================================= */
+.trainingSchemeBox {
+  background: #0b233b;
+  border: 1px solid #21496C;
+  border-radius: 16px;
+  padding: 12px;
+  margin: 12px 0;
+}
+
+.trainingSchemeBox h3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #8BD62F;
+  margin-bottom: 10px;
+}
+
+.trainingTypeGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+  margin: 6px 0 10px;
+}
+
+.trainingTypeGrid button {
+  border: 1px solid #21496C;
+  background: #061421;
+  color: #F7FBFF;
+  border-radius: 12px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.trainingTypeGrid button.active {
+  background: linear-gradient(135deg,#8BD62F,#22A7E0);
+  color: #061421;
+  border-color: transparent;
+  font-weight: 900;
+}
+
+.trainingSchemeBox label {
+  color: #B9C7D6;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.trainingSchemeBox input[type="number"] {
+  width: 100%;
+  background: #061421;
+  color: #F7FBFF;
+  border: 1px solid #21496C;
+  border-radius: 12px;
+  padding: 9px;
+  margin: 5px 0 10px;
+}
+
+.keeperInfo {
+  background: rgba(139,214,47,.09);
+  border: 1px solid rgba(139,214,47,.35);
+  border-radius: 14px;
+  padding: 10px;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  margin: 10px 0;
+}
+
+.keeperInfo p {
+  margin: 0;
+  color: #DCE8F2;
+  font-size: 13px;
+}
+
+.trainingApply {
+  width: 100%;
+  border: 0 !important;
+  background: linear-gradient(135deg,#8BD62F,#22A7E0) !important;
+  color: #061421 !important;
+  font-weight: 900;
+  justify-content: center;
+}

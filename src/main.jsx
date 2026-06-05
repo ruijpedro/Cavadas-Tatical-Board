@@ -8,7 +8,7 @@ import { bibliotecaProfissional, comandosIA, gerarExercicioIA } from './data/bib
 import './style.css'
 import { ImportarEsquema } from './components/ImportarEsquema'
 import { IAVisionAssistida } from './components/IAVisionAssistida'
-import { SeletorJogadoresFutebol, gerarJogadoresFutebol } from './components/SeletorJogadoresFutebol'
+import { EsquemasTreinoPanel, gerarJogadoresTreino } from './components/EsquemasTreinoPanel'
 
 const posicoesBase = {
   futebol: [
@@ -94,7 +94,7 @@ function App(){
   const [tab, setTab] = useState('quadro')
   const [modalidade, setModalidade] = useState('futsal')
   
-  const [configFutebol, setConfigFutebol] = useState({ atacantes: 7, defensores: 6, guardaRedes: true })const [players, setPlayers] = useState(posicoesBase.futsal)
+  const [configTreino, setConfigTreino] = useState({ tipoTreino: 'campo', atacantes: 7, defensores: 6, guardaRedes: true })const [players, setPlayers] = useState(posicoesBase.futsal)
   const [ball, setBall] = useState({ x:50, y:50 })
   const [mode, setMode] = useState('move')
   const [paths, setPaths] = useState([])
@@ -110,19 +110,20 @@ function App(){
     { nome:'Fase 3', pausa:2, narracao:'Finalização ou progressão do exercício.' }
   ])
 
-
-  function aplicarJogadoresFutebol(){
-    const novos = gerarJogadoresFutebol(configFutebol)
+  function aplicarEsquemaTreino(){
+    const novos = gerarJogadoresTreino({ modalidade, ...configTreino })
     setPlayers(novos)
-    setBall({ x: 8, y: 92 })
+    setBall({ x: modalidade === 'futsal' ? 48 : 8, y: modalidade === 'futsal' ? 50 : 92 })
     setPaths([])
     setPhase(0)
-    setNotes(`Futebol — animação preparada com ${configFutebol.atacantes} atacantes, ${configFutebol.defensores} defensores${configFutebol.guardaRedes ? ' e guarda-redes' : ''}.`)
+
+    const tipo = configTreino.tipoTreino === 'guarda-redes' ? 'guarda-redes' : 'jogadores de campo'
+    setNotes(`${modalidade.toUpperCase()} — esquema de treino de ${tipo}.\n\nAtacantes: ${configTreino.atacantes}\nDefensores: ${configTreino.defensores}\nGuarda-redes: ${configTreino.guardaRedes ? 'sim' : 'não'}.\n\nJogadores aplicados automaticamente no campo.`)
   }
 
   function mudarModalidade(m){
     setModalidade(m)
-    setPlayers(m === 'futebol' ? gerarJogadoresFutebol(configFutebol) : posicoesBase[m])
+    setPlayers((m === 'futebol' || m === 'futsal') ? gerarJogadoresTreino({ modalidade: m, ...configTreino }) : posicoesBase[m])
     setPaths([])
     setBall({ x: m === 'voleibol' ? 18 : 50, y: 50 })
     setNotes(`Modalidade selecionada: ${m.toUpperCase()}. Campo e posições base atualizados.`)
@@ -273,11 +274,11 @@ function App(){
         </div>
 
         
-        <SeletorJogadoresFutebol
+        <EsquemasTreinoPanel
           modalidade={modalidade}
-          config={configFutebol}
-          setConfig={setConfigFutebol}
-          onAplicar={aplicarJogadoresFutebol}
+          config={configTreino}
+          setConfig={setConfigTreino}
+          onAplicar={aplicarEsquemaTreino}
         />
 
         <h3>Ferramentas</h3>
