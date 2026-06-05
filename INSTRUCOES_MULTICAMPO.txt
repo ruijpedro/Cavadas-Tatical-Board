@@ -1,0 +1,23 @@
+Atualização V3.1 MultiCampo
+
+Incluído:
+- src/components/CampoDinamico.jsx
+- CSS para campo de Futsal, Futebol e Voleibol
+- seletor de modalidade: Futsal | Futebol | Voleibol
+
+Se o teu App.jsx não tiver sido alterado automaticamente, faz:
+1. Importar:
+   import { CampoDinamico } from './components/CampoDinamico'
+
+2. Criar estado:
+   const [modalidade, setModalidade] = useState('futsal')
+
+3. Antes do campo, inserir:
+   <div className="selector-modalidade">
+     <button className={modalidade === 'futsal' ? 'active' : ''} onClick={() => setModalidade('futsal')}>Futsal</button>
+     <button className={modalidade === 'futebol' ? 'active' : ''} onClick={() => setModalidade('futebol')}>Futebol</button>
+     <button className={modalidade === 'voleibol' ? 'active' : ''} onClick={() => setModalidade('voleibol')}>Voleibol</button>
+   </div>
+
+4. O campo deve usar:
+   className={`field campo-dinamico campo-${modalidade}`}

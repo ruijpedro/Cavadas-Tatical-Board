@@ -1,0 +1,29 @@
+Cavadas Tactical V3.2 — Demo de animações do esquema enviado
+
+Incluído nesta atualização:
+1. src/data/demoLinhaPasseFutsal.js
+   - Dados do exercício baseado no teu desenho.
+   - Fases, movimentos, passes, pausas e narração em português.
+
+2. src/components/PainelDemoCavadas.jsx
+   - Botão "Carregar animação".
+
+3. CSS atualizado
+   - Cartão Demo Cavadas.
+   - Setas tracejadas animadas.
+   - Painel de informação do exercício.
+
+4. public/demo-linhas-passe.html
+   - Página autónoma para veres imediatamente o esquema visual no browser.
+
+Patch automático:
+Sem relatório.
+
+Como testar:
+- Faz upload dos ficheiros soltos para o GitHub.
+- Corre o Build Web.
+- Abre a app e procura o botão "Carregar animação".
+- Em alternativa, abre /demo-linhas-passe.html no GitHub Pages para ver a versão standalone.
+
+Nota:
+A animação em MP4 final depende do módulo MediaRecorder/canvas. Esta atualização prepara o exercício e as fases para esse módulo.
