@@ -1,4 +1,4 @@
-name: Build Cavadas Tactical APK
+name: Build Cavadas Tactical Android APK
 
 on:
   push:
@@ -13,18 +13,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Node
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
 
-      - name: Install
+      - name: Install dependencies
         run: npm install
 
-      - name: Build Vite
+      - name: Build WebApp
         run: npm run build
 
       - name: Setup Java
@@ -33,17 +33,22 @@ jobs:
           distribution: temurin
           java-version: 21
 
-      - name: Capacitor Sync
+      - name: Add Android platform if missing
         run: |
-          npx cap sync android
+          if [ ! -d "android" ]; then
+            npx cap add android
+          fi
 
-      - name: Build APK
+      - name: Capacitor sync Android
+        run: npx cap sync android
+
+      - name: Build debug APK
         run: |
           cd android
           chmod +x gradlew
           ./gradlew assembleDebug
 
-      - name: Upload APK
+      - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
           name: Cavadas-Tactical-APK
