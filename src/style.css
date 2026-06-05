@@ -97,3 +97,364 @@ h1,h2,h3{margin:0 0 10px}.sectionHead{display:flex;justify-content:space-between
 .muted {
   color: #B9C7D6;
 }
+
+
+/* =========================================================
+   V4.1 — RESPONSIVE + LOGO FIX
+   Corrige:
+   - símbolo quebrado no cabeçalho
+   - campo a sair do ecrã no telemóvel
+   - adaptação para telemóvel, tablet e PC
+   ========================================================= */
+
+.brand {
+  min-width: 0;
+}
+
+.brandIcon {
+  width: 58px;
+  height: 58px;
+  flex: 0 0 58px;
+  display: grid;
+  place-items: center;
+}
+
+.brandIcon svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.brand b,
+.brand span,
+.brand small {
+  line-height: 1.05;
+}
+
+.topbar {
+  gap: 12px;
+}
+
+nav {
+  max-width: 100%;
+}
+
+/* Campo fluido em qualquer ecrã */
+.campo {
+  width: min(100%, 920px) !important;
+  height: auto !important;
+  aspect-ratio: 16 / 10;
+  max-height: calc(100vh - 260px);
+  min-height: 260px;
+}
+
+/* Mantém os jogadores proporcionais ao ecrã */
+.player {
+  width: clamp(30px, 4.6vw, 42px);
+  height: clamp(30px, 4.6vw, 42px);
+  font-size: clamp(13px, 2vw, 18px);
+}
+
+.ball {
+  width: clamp(26px, 4vw, 34px);
+  height: clamp(26px, 4vw, 34px);
+  font-size: clamp(14px, 2vw, 18px);
+}
+
+/* Layout tablet */
+@media (max-width: 1100px) {
+  .layout {
+    grid-template-columns: 1fr !important;
+    padding: 10px;
+  }
+
+  .mainPanel {
+    min-height: auto;
+  }
+
+  .panel.right {
+    order: 3;
+  }
+
+  .panel:first-of-type {
+    order: 2;
+  }
+
+  .mainPanel {
+    order: 1;
+  }
+
+  .campo {
+    max-height: none;
+    width: 100% !important;
+  }
+}
+
+/* Layout telemóvel */
+@media (max-width: 720px) {
+  body {
+    overflow-x: hidden;
+  }
+
+  .topbar {
+    position: relative;
+    height: auto !important;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 10px;
+  }
+
+  .brand {
+    display: grid;
+    grid-template-columns: 58px 1fr;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .brand b {
+    font-size: 22px;
+  }
+
+  .brand span {
+    font-size: 22px;
+  }
+
+  .brand small {
+    font-size: 13px;
+  }
+
+  nav {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  nav button {
+    width: 100%;
+    justify-content: center;
+    padding: 12px 8px;
+    font-size: 15px;
+  }
+
+  .layout {
+    padding: 8px;
+    gap: 10px;
+  }
+
+  .panel,
+  .mainPanel {
+    border-radius: 14px;
+    padding: 10px;
+  }
+
+  .sectionHead {
+    flex-direction: column;
+  }
+
+  .actions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0,1fr));
+    width: 100%;
+    gap: 8px;
+  }
+
+  .actions button {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .campo {
+    width: 100% !important;
+    aspect-ratio: 9 / 14;
+    max-height: none;
+    min-height: 520px;
+    border-radius: 16px;
+  }
+
+  /* No telemóvel o campo fica vertical para se ver melhor */
+  .campo-futebol,
+  .campo-futsal {
+    background-size: cover;
+  }
+
+  .campo:before {
+    inset: 34px;
+  }
+
+  .linha-meio {
+    left: 50%;
+    top: 34px;
+    bottom: 34px;
+  }
+
+  .circulo-centro {
+    width: 120px;
+    height: 120px;
+  }
+
+  .grande-area {
+    width: 110px;
+    height: 210px;
+    top: calc(50% - 105px);
+  }
+
+  .pequena-area {
+    width: 55px;
+    height: 110px;
+    top: calc(50% - 55px);
+  }
+
+  .area-futsal {
+    width: 105px;
+    height: 210px;
+    top: calc(50% - 105px);
+  }
+
+  .baliza {
+    top: calc(50% - 42px);
+    height: 84px;
+  }
+
+  .tools,
+  .modalidades {
+    grid-template-columns: repeat(3, minmax(0,1fr));
+  }
+
+  .tools button,
+  .modalidades button {
+    justify-content: center;
+    padding: 11px 6px;
+  }
+}
+
+/* Telemóveis estreitos */
+@media (max-width: 420px) {
+  .brandIcon {
+    width: 52px;
+    height: 52px;
+    flex-basis: 52px;
+  }
+
+  .brand {
+    grid-template-columns: 52px 1fr;
+  }
+
+  .brand b,
+  .brand span {
+    font-size: 20px;
+  }
+
+  nav button {
+    font-size: 14px;
+  }
+
+  .campo {
+    min-height: 500px;
+  }
+
+  .tools,
+  .modalidades {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Modo apresentação adapta automaticamente */
+.presentation .campo {
+  width: 96vw !important;
+  height: auto !important;
+  aspect-ratio: 16 / 10;
+  max-height: 86vh;
+}
+
+@media (max-width: 720px) {
+  .presentation .campo {
+    aspect-ratio: 9 / 14;
+    max-height: none;
+    min-height: 86vh;
+  }
+}
+
+
+/* =========================================================
+   V5 — IA Vision Assistida + Logo Blindado
+   ========================================================= */
+.brandIcon{width:58px;height:58px;flex:0 0 58px;display:grid;place-items:center}
+.brandIcon svg{width:100%;height:100%;display:block}
+.visionBox{display:grid;gap:14px}
+.visionHeader,.visionCard,.visionResult{background:#0b233b;border:1px solid #21496C;border-radius:18px;padding:14px}
+.visionHeader h2,.visionResult h3{display:flex;align-items:center;gap:8px;color:#8BD62F;margin:0 0 8px}
+.visionHeader p{color:#B9C7D6;margin:0}
+.visionGrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.visionUpload{border:2px dashed #21496C;border-radius:16px;padding:18px;background:#061421;display:flex;align-items:center;justify-content:center;gap:10px;cursor:pointer;font-weight:800}
+.visionUpload input{display:none}
+.visionPreview{width:100%;max-height:360px;object-fit:contain;border-radius:14px;border:1px solid #21496C;background:#061421;margin-top:12px}
+.visionEmpty{height:220px;border-radius:14px;border:1px solid #21496C;background:#061421;display:grid;place-items:center;color:#B9C7D6;margin-top:12px}
+.visionCard select{width:100%;background:#061421;color:#F7FBFF;border:1px solid #21496C;border-radius:12px;padding:10px;margin:6px 0}
+.visionCounters{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.visionCounters input{margin:4px 0 0}
+.visionMain{border:0!important;background:linear-gradient(135deg,#8BD62F,#22A7E0)!important;color:#061421!important;font-weight:900;justify-content:center;width:100%;margin-top:10px}
+.visionResult ol{color:#F7FBFF}.visionResult p{color:#DCE8F2}
+@media(max-width:850px){.visionGrid{grid-template-columns:1fr}.visionCounters{grid-template-columns:1fr}}
+
+
+/* =========================================================
+   V5.1 — Futebol: escolha do número de jogadores
+   ========================================================= */
+.footballPlayersBox {
+  background: #0b233b;
+  border: 1px solid #21496C;
+  border-radius: 16px;
+  padding: 12px;
+  margin: 12px 0;
+}
+
+.footballPlayersBox h3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #8BD62F;
+  margin-bottom: 10px;
+}
+
+.footballPlayersBox label {
+  color: #B9C7D6;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.footballPlayersBox input[type="number"] {
+  width: 100%;
+  background: #061421;
+  color: #F7FBFF;
+  border: 1px solid #21496C;
+  border-radius: 12px;
+  padding: 9px;
+  margin: 5px 0 10px;
+}
+
+.checkLine {
+  display: flex !important;
+  align-items: center;
+  gap: 8px;
+  margin: 6px 0 12px;
+}
+
+.checkLine input {
+  width: auto !important;
+  margin: 0 !important;
+}
+
+.footballApply {
+  width: 100%;
+  border: 0 !important;
+  background: linear-gradient(135deg,#8BD62F,#22A7E0) !important;
+  color: #061421 !important;
+  font-weight: 900;
+  justify-content: center;
+}
+
+.miniHint {
+  color: #B9C7D6;
+  font-size: 12px;
+  margin: 8px 0 0;
+}

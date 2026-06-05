@@ -7,6 +7,8 @@ import html2canvas from 'html2canvas'
 import { bibliotecaProfissional, comandosIA, gerarExercicioIA } from './data/bibliotecaProfissional'
 import './style.css'
 import { ImportarEsquema } from './components/ImportarEsquema'
+import { IAVisionAssistida } from './components/IAVisionAssistida'
+import { SeletorJogadoresFutebol, gerarJogadoresFutebol } from './components/SeletorJogadoresFutebol'
 
 const posicoesBase = {
   futebol: [
@@ -38,7 +40,21 @@ const posicoesBase = {
 }
 
 function Logo(){
-  return <div className="brand"><img src="./icon.svg" /><div><b>CAVADAS</b><span>TACTICAL</span><small>Planear • Animar • Evoluir</small></div></div>
+  return (
+    <div className="brand">
+      <div className="brandIcon" aria-label="Cavadas Tactical">
+        <svg viewBox="0 0 120 120" role="img">
+          <rect x="4" y="4" width="112" height="112" rx="24" fill="#071A2E" stroke="#21496C" strokeWidth="3"/>
+          <path d="M18 83 C34 56, 54 38, 80 27 C96 20, 108 24, 112 36" fill="none" stroke="#8BD62F" strokeWidth="8" strokeLinecap="round"/>
+          <circle cx="38" cy="38" r="15" fill="#22A7E0"/>
+          <path d="M36 25 C51 32, 56 47, 63 62 C70 78, 86 83, 101 85" fill="none" stroke="#FFFFFF" strokeWidth="10" strokeLinecap="round"/>
+          <path d="M25 91 H95" stroke="#8BD62F" strokeWidth="6" strokeLinecap="round"/>
+          <text x="60" y="106" textAnchor="middle" fontSize="22" fontFamily="Arial" fontWeight="900" fill="#FFFFFF">CT</text>
+        </svg>
+      </div>
+      <div><b>CAVADAS</b><span>TACTICAL</span><small>Planear • Animar • Evoluir</small></div>
+    </div>
+  )
 }
 
 function Campo({ modalidade, children, refCampo, onMouseMove, onMouseUp }) {
@@ -77,7 +93,8 @@ function App(){
   const dragRef = useRef(null)
   const [tab, setTab] = useState('quadro')
   const [modalidade, setModalidade] = useState('futsal')
-  const [players, setPlayers] = useState(posicoesBase.futsal)
+  
+  const [configFutebol, setConfigFutebol] = useState({ atacantes: 7, defensores: 6, guardaRedes: true })const [players, setPlayers] = useState(posicoesBase.futsal)
   const [ball, setBall] = useState({ x:50, y:50 })
   const [mode, setMode] = useState('move')
   const [paths, setPaths] = useState([])
@@ -93,9 +110,19 @@ function App(){
     { nome:'Fase 3', pausa:2, narracao:'Finalização ou progressão do exercício.' }
   ])
 
+
+  function aplicarJogadoresFutebol(){
+    const novos = gerarJogadoresFutebol(configFutebol)
+    setPlayers(novos)
+    setBall({ x: 8, y: 92 })
+    setPaths([])
+    setPhase(0)
+    setNotes(`Futebol — animação preparada com ${configFutebol.atacantes} atacantes, ${configFutebol.defensores} defensores${configFutebol.guardaRedes ? ' e guarda-redes' : ''}.`)
+  }
+
   function mudarModalidade(m){
     setModalidade(m)
-    setPlayers(posicoesBase[m])
+    setPlayers(m === 'futebol' ? gerarJogadoresFutebol(configFutebol) : posicoesBase[m])
     setPaths([])
     setBall({ x: m === 'voleibol' ? 18 : 50, y: 50 })
     setNotes(`Modalidade selecionada: ${m.toUpperCase()}. Campo e posições base atualizados.`)
@@ -199,6 +226,27 @@ function App(){
     setTab('quadro')
   }
 
+
+  function aplicarVisionAssistida(esquema){
+    const m = (esquema.modalidade || 'futebol').toLowerCase()
+    setModalidade(m === 'voleibol' ? 'voleibol' : m === 'futsal' ? 'futsal' : 'futebol')
+    if(esquema.players) setPlayers(esquema.players)
+    if(esquema.ball) setBall(esquema.ball)
+    if(esquema.fases){
+      setFases(esquema.fases.map((f,i)=>({ nome:f.nome || `Fase ${i+1}`, pausa:2, narracao:f.narracao || f.nome })))
+      const newPaths = []
+      esquema.fases.forEach((fase,idx)=>{
+        ;(fase.movimentos || []).forEach((mv,j)=>{
+          newPaths.push({ id:Date.now()+idx*100+j, phase:idx, type:mv.type || 'move', from:mv.from, to:mv.to })
+        })
+      })
+      setPaths(newPaths)
+      setPhase(0)
+    }
+    setNotes(`${esquema.nome}\n\nTipo: ${esquema.tipo}\n\nObjetivo: ${esquema.objetivo}\n\nResumo: ${esquema.resumo}`)
+    setTab('quadro')
+  }
+
   const filtrados = bibliotecaProfissional.filter(x => `${x.origem} ${x.modalidade} ${x.categoria} ${x.titulo} ${x.objetivo}`.toLowerCase().includes(search.toLowerCase()))
   const visiblePaths = paths.filter(p => p.phase === phase)
 
@@ -209,7 +257,7 @@ function App(){
         <button className={tab==='quadro'?'active':''} onClick={()=>setTab('quadro')}>Quadro</button>
         <button className={tab==='biblioteca'?'active':''} onClick={()=>setTab('biblioteca')}>Biblioteca</button>
         <button className={tab==='ia'?'active':''} onClick={()=>setTab('ia')}>IA Cavadas</button>
-        <button className={tab==='sketch'?'active':''} onClick={()=>setTab('sketch')}>Importar Esquema</button>
+        <button className={tab==='vision'?'active':''} onClick={()=>setTab('vision')}>IA Vision</button>
         <button className={tab==='modelo'?'active':''} onClick={()=>setTab('modelo')}>Modelo</button>
         <button className={tab==='google'?'active':''} onClick={()=>setTab('google')}>Google</button>
       </nav>
@@ -223,6 +271,14 @@ function App(){
           <button className={modalidade==='futebol'?'active':''} onClick={()=>mudarModalidade('futebol')}>Futebol</button>
           <button className={modalidade==='voleibol'?'active':''} onClick={()=>mudarModalidade('voleibol')}>Voleibol</button>
         </div>
+
+        
+        <SeletorJogadoresFutebol
+          modalidade={modalidade}
+          config={configFutebol}
+          setConfig={setConfigFutebol}
+          onAplicar={aplicarJogadoresFutebol}
+        />
 
         <h3>Ferramentas</h3>
         <div className="tools">
@@ -309,6 +365,12 @@ function App(){
         {tab === 'sketch' && <>
           <div className="sectionHead"><h1>Importar Esquema</h1></div>
           <ImportarEsquema onApply={aplicarEsquemaInterpretado} />
+        </>}
+
+
+        {tab === 'vision' && <>
+          <div className="sectionHead"><h1>IA Vision Assistida</h1></div>
+          <IAVisionAssistida onApply={aplicarVisionAssistida} />
         </>}
 
         {tab === 'modelo' && <>

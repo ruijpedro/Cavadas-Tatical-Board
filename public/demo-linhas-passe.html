@@ -1,0 +1,67 @@
+
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Cavadas Tactical — Demo Linhas de Passe</title>
+<style>
+body{margin:0;background:#061421;color:#fff;font-family:Arial,sans-serif}
+.wrap{padding:18px}
+h1{color:#8BD62F}
+.court{position:relative;width:900px;max-width:100%;aspect-ratio:16/10;background:#2f63a2;border:18px solid #b25a46;border-radius:16px;margin:auto;overflow:hidden}
+.court:before{content:"";position:absolute;inset:40px;border:3px solid #fff}
+.mid{position:absolute;left:50%;top:40px;bottom:40px;border-left:3px solid #fff}.circle{position:absolute;left:50%;bottom:-15px;width:170px;height:170px;border:3px solid #fff;border-radius:50%;transform:translateX(-50%)}
+.area{position:absolute;left:28%;top:40px;width:44%;height:34%;border:3px solid #fff;border-top:0}.goal{position:absolute;left:43%;top:5px;width:14%;height:35px;border:3px solid #fff}
+.p{position:absolute;width:30px;height:30px;border-radius:50%;background:#0048c7;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:900;border:3px solid #fff}
+.r{background:#e54242}.g{background:#000}.ball{background:#111}
+svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+line,path{stroke:#0048c7;stroke-width:6;fill:none;stroke-dasharray:12 12;marker-end:url(#arr);animation:dash 1.2s linear infinite}
+@keyframes dash{to{stroke-dashoffset:-48}}
+.panel{max-width:900px;margin:16px auto;background:#0b233b;border:1px solid #21496c;border-radius:16px;padding:14px}
+button{background:#8BD62F;color:#061421;border:0;border-radius:12px;padding:12px 18px;font-weight:900;cursor:pointer}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>Cavadas Tactical — Demo: Movimentação para criação de linhas de passe</h1>
+<div class="court">
+<div class="mid"></div><div class="circle"></div><div class="area"></div><div class="goal"></div>
+<svg viewBox="0 0 900 562"><defs><marker id="arr" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#0048c7"/></marker></defs>
+<path d="M150 150 C150 230 120 300 185 345"/>
+<path d="M245 175 C320 205 350 260 430 282"/>
+<path d="M460 282 C560 300 620 350 720 310"/>
+<path d="M720 150 C780 220 760 290 720 310"/>
+<path d="M255 360 C340 415 460 410 585 365"/>
+</svg>
+<div class="p" style="left:135px;top:135px">1</div>
+<div class="p r" style="left:180px;top:120px">x</div>
+<div class="p" style="left:245px;top:175px">2</div>
+<div class="p ball" style="left:425px;top:268px">●</div>
+<div class="p" style="left:470px;top:285px">3</div>
+<div class="p" style="left:700px;top:140px">4</div>
+<div class="p" style="left:575px;top:355px">5</div>
+<div class="p" style="left:430px;top:65px">GR</div>
+<div class="p r" style="left:475px;top:60px">x</div>
+</div>
+<div class="panel">
+<h2>Texto em português para a apresentação</h2>
+<p><b>Objetivo:</b> criar linhas de passe e finalizar com superioridade.</p>
+<ol>
+<li>Organização inicial da equipa.</li>
+<li>Passe e movimentação para apoio frontal.</li>
+<li>Fixação do defensor.</li>
+<li>Rotação para o lado contrário.</li>
+<li>Passe final e finalização.</li>
+</ol>
+<button onclick="playVoice()">Ouvir narração</button>
+</div>
+</div>
+<script>
+function playVoice(){
+ const txt='Fase um. Organização inicial. Fase dois. Passe e movimentação para apoio frontal. Fase três. Fixação do defensor. Fase quatro. Rotação para o lado contrário. Fase cinco. Passe final e finalização.';
+ const u=new SpeechSynthesisUtterance(txt);u.lang='pt-PT';speechSynthesis.cancel();speechSynthesis.speak(u)
+}
+</script>
+</body>
+</html>
