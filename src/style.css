@@ -548,3 +548,24 @@ nav {
   font-weight: 900;
   justify-content: center;
 }
+
+
+/* =========================================================
+   V7 — Animation Player estilo tático
+   ========================================================= */
+.v7PlayerWrap{display:grid;gap:14px}
+.v7Top{display:flex;justify-content:space-between;gap:14px;align-items:flex-start}
+.v7Top h1{margin:0;color:#8BD62F}.v7Top p{margin:6px 0 0;color:#B9C7D6}
+.v7Selects{display:flex;gap:8px;flex-wrap:wrap}.v7Selects select{background:#061421;color:#F7FBFF;border:1px solid #21496C;border-radius:12px;padding:10px}
+.v7Field{position:relative;width:min(100%,980px);height:auto;aspect-ratio:16/10;margin:auto;border:4px solid #fff;border-radius:20px;overflow:hidden;box-shadow:inset 0 0 0 3px #fff3,0 18px 40px #0007}
+.v7-futebol{background:repeating-linear-gradient(90deg,#178340 0 65px,#1b964b 65px 130px)}.v7-futsal{background:linear-gradient(135deg,#255DA0,#356FB6)}
+.v7Field:before{content:"";position:absolute;inset:38px;border:3px solid #fffc;pointer-events:none}.v7Line.mid{position:absolute;left:50%;top:38px;bottom:38px;border-left:3px solid #fffc}.v7Circle{position:absolute;left:50%;top:50%;width:140px;height:140px;border:3px solid #fffc;border-radius:50%;transform:translate(-50%,-50%)}.v7Circle.futsal{width:120px;height:120px}
+.v7Box{position:absolute;border:3px solid #fffc}.v7Box.big{top:28%;width:17%;height:44%}.v7Box.small{top:38%;width:8%;height:24%}.v7Box.left{left:38px;border-left:0}.v7Box.right{right:38px;border-right:0}.v7Goal{position:absolute;top:42%;width:34px;height:16%;border:4px solid #fff;background:#fff2}.v7Goal.left{left:4px}.v7Goal.right{right:4px}.v7Goal.fut{height:14%;top:43%}
+.v7FutsalArea{position:absolute;top:30%;width:13%;height:40%;border:3px solid #fffc}.v7FutsalArea.left{left:38px;border-left:0;border-radius:0 120px 120px 0}.v7FutsalArea.right{right:38px;border-right:0;border-radius:120px 0 0 120px}
+.v7Arrows{position:absolute;inset:0;width:100%;height:100%;z-index:4;pointer-events:none}.v7Arrows line{stroke-width:1.1;vector-effect:non-scaling-stroke;stroke-dasharray:4 3}.v7Move{stroke:#8BD62F}.v7Pass{stroke:#fff}
+.v7Player{position:absolute;width:44px;height:44px;border-radius:50%;transform:translate(-50%,-50%);display:flex;align-items:center;justify-content:center;font-weight:900;border:3px solid #fff;box-shadow:0 8px 16px #0008;z-index:5;transition:box-shadow .2s}.v7Player.blue{background:#0057D8}.v7Player.red{background:#E43D30}.v7Player.yellow{background:#F7C948;color:#061421}.v7Player.active{box-shadow:0 0 0 6px rgba(139,214,47,.35),0 8px 16px #0008}
+.v7Ball{position:absolute;width:34px;height:34px;border-radius:50%;transform:translate(-50%,-50%);display:flex;align-items:center;justify-content:center;background:#fff;color:#111;z-index:6;box-shadow:0 8px 16px #0008}.v7Ball.active{box-shadow:0 0 0 8px rgba(255,255,255,.3),0 8px 16px #0008}
+.v7Controls{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}.v7Controls button{border:1px solid #21496C;background:#0b233b;color:#F7FBFF;border-radius:12px;padding:10px 12px;display:inline-flex;align-items:center;gap:6px;cursor:pointer}.v7Controls button.primary{background:linear-gradient(135deg,#8BD62F,#22A7E0);color:#061421;border:0;font-weight:900}
+.v7Timeline{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px}.v7Timeline button{background:#0b233b;color:#F7FBFF;border:1px solid #21496C;border-radius:14px;padding:10px;display:grid;gap:4px;text-align:left;cursor:pointer}.v7Timeline button.active{border-color:#8BD62F;box-shadow:0 0 0 2px rgba(139,214,47,.28)}.v7Timeline button.done{background:#123E2A}.v7Timeline b{color:#8BD62F}.v7Timeline span{font-size:12px}
+.v7Info{background:#0b233b;border:1px solid #21496C;border-radius:18px;padding:14px}.v7Info h2{color:#8BD62F;margin:0 0 6px}.v7Info p{color:#DCE8F2;margin:0 0 10px}.v7Progress{height:10px;border-radius:999px;background:#061421;overflow:hidden;border:1px solid #21496C}.v7Progress span{display:block;height:100%;background:linear-gradient(90deg,#8BD62F,#22A7E0)}
+@media(max-width:720px){.v7Top{display:grid}.v7Field{aspect-ratio:9/14;min-height:520px}.v7Controls{display:grid;grid-template-columns:1fr 1fr}.v7Player{width:34px;height:34px;font-size:13px}.v7Ball{width:28px;height:28px}}

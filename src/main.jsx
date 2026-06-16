@@ -9,6 +9,7 @@ import './style.css'
 import { ImportarEsquema } from './components/ImportarEsquema'
 import { IAVisionAssistida } from './components/IAVisionAssistida'
 import { EsquemasTreinoPanel, gerarJogadoresTreino } from './components/EsquemasTreinoPanel'
+import { AnimationPlayerV7 } from './components/AnimationPlayerV7'
 
 const posicoesBase = {
   futebol: [
@@ -249,6 +250,38 @@ function App(){
     setTab('quadro')
   }
 
+
+  function aplicarAnimacaoV7(animacao){
+    const m = (animacao.modalidade || 'futebol').toLowerCase()
+    setModalidade(m === 'futsal' ? 'futsal' : 'futebol')
+    if(animacao.players) setPlayers(animacao.players)
+    if(animacao.ball) setBall(animacao.ball)
+    if(animacao.phases){
+      setFases(animacao.phases.map((f,i)=>({
+        nome: f.nome || `Fase ${i+1}`,
+        pausa: f.duracao || 2,
+        narracao: f.narracao || f.nome
+      })))
+      const newPaths = []
+      animacao.phases.forEach((fase,idx)=>{
+        ;(fase.movimentos || []).forEach((mv,j)=>{
+          newPaths.push({
+            id: Date.now()+idx*100+j,
+            phase: idx,
+            type: mv.obj === 'ball' ? 'pass' : 'move',
+            from: mv.from,
+            to: mv.to
+          })
+        })
+      })
+      setPaths(newPaths)
+      setPhase(0)
+    }
+    setNotes(`${animacao.nome}\n\n${animacao.descricao || ''}\n\nAnimação V7 aplicada ao quadro tático.`)
+    setTab('quadro')
+  }
+
+
   const filtrados = bibliotecaProfissional.filter(x => `${x.origem} ${x.modalidade} ${x.categoria} ${x.titulo} ${x.objetivo}`.toLowerCase().includes(search.toLowerCase()))
   const visiblePaths = paths.filter(p => p.phase === phase)
 
@@ -257,6 +290,7 @@ function App(){
       <Logo />
       <nav>
         <button className={tab==='quadro'?'active':''} onClick={()=>setTab('quadro')}>Quadro</button>
+        <button className={tab==='animacoes'?'active':''} onClick={()=>setTab('animacoes')}>Animações</button>
         <button className={tab==='biblioteca'?'active':''} onClick={()=>setTab('biblioteca')}>Biblioteca</button>
         <button className={tab==='ia'?'active':''} onClick={()=>setTab('ia')}>IA Cavadas</button>
         <button className={tab==='vision'?'active':''} onClick={()=>setTab('vision')}>IA Vision</button>
@@ -327,6 +361,10 @@ function App(){
             {(modalidade !== 'voleibol') && <div className="ball" style={{left:`${ball.x}%`, top:`${ball.y}%`}} onMouseDown={e=>startDrag(e,'ball','ball')}>⚽</div>}
             {(modalidade === 'voleibol') && <div className="ball volley" style={{left:`${ball.x}%`, top:`${ball.y}%`}} onMouseDown={e=>startDrag(e,'ball','ball')}>🏐</div>}
           </Campo>
+        </>}
+
+        {tab === 'animacoes' && <>
+          <AnimationPlayerV7 onLoadToBoard={aplicarAnimacaoV7} />
         </>}
 
         {tab === 'biblioteca' && <>
