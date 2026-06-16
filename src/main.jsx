@@ -11,6 +11,7 @@ import { IAVisionAssistida } from './components/IAVisionAssistida'
 import { EsquemasTreinoPanel, gerarJogadoresTreino } from './components/EsquemasTreinoPanel'
 import { AnimationPlayerV7 } from './components/AnimationPlayerV7'
 import { CampoSVGPro } from './components/CampoSVGPro'
+import { TimelineFases } from './components/TimelineFases'
 
 const posicoesBase = {
   futebol: [
@@ -268,6 +269,36 @@ function App(){
   }
 
 
+
+  function novaFaseTimeline(){
+    const nova = {
+      nome: `Fase ${fases.length + 1}`,
+      pausa: 2,
+      narracao: 'Nova fase da animação.'
+    }
+    setFases([...fases, nova])
+    setPhase(fases.length)
+  }
+
+  function copiarFaseTimeline(){
+    const atual = fases[phase] || { nome: `Fase ${phase + 1}`, pausa: 2, narracao: '' }
+    const copia = {
+      ...atual,
+      nome: `${atual.nome || `Fase ${phase + 1}`} - cópia`
+    }
+    setFases([...fases.slice(0, phase + 1), copia, ...fases.slice(phase + 1)])
+    setPhase(phase + 1)
+  }
+
+  function eliminarFaseTimeline(){
+    if(fases.length <= 1) return
+    const novas = fases.filter((_, i) => i !== phase)
+    setFases(novas)
+    setPhase(Math.max(0, Math.min(phase, novas.length - 1)))
+    setPaths(paths.filter(p => p.phase !== phase))
+  }
+
+
   const filtrados = bibliotecaProfissional.filter(x => `${x.origem} ${x.modalidade} ${x.categoria} ${x.titulo} ${x.objetivo}`.toLowerCase().includes(search.toLowerCase()))
   const visiblePaths = paths.filter(p => p.phase === phase)
 
@@ -347,6 +378,16 @@ function App(){
             {(modalidade !== 'voleibol') && <div className="ball" style={{left:`${ball.x}%`, top:`${ball.y}%`}} onMouseDown={e=>startDrag(e,'ball','ball')}>⚽</div>}
             {(modalidade === 'voleibol') && <div className="ball volley" style={{left:`${ball.x}%`, top:`${ball.y}%`}} onMouseDown={e=>startDrag(e,'ball','ball')}>🏐</div>}
           </Campo>
+
+          <TimelineFases
+            fases={fases}
+            faseAtual={phase}
+            setFaseAtual={setPhase}
+            onNovaFase={novaFaseTimeline}
+            onCopiarFase={copiarFaseTimeline}
+            onEliminarFase={eliminarFaseTimeline}
+          />
+
         </>}
 
         {tab === 'animacoes' && <>

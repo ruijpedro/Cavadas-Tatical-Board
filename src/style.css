@@ -949,3 +949,138 @@ nav {
 @media (max-width:720px){
   .campo.campo-pro,.v7Field.campo-pro{ width:100% !important; aspect-ratio:120/78 !important; }
 }
+
+
+/* =========================================================
+   V9.1 — Timeline + melhoria visual futsal
+   ========================================================= */
+
+.timelineV91 {
+  margin-top: 14px;
+  background: #071A2E;
+  border: 1px solid #21496C;
+  border-radius: 18px;
+  padding: 12px;
+  display: grid;
+  gap: 10px;
+}
+
+.timelineV91Top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  color: #F7FBFF;
+}
+
+.timelineV91Top strong {
+  color: #8BD62F;
+  font-size: 16px;
+}
+
+.timelineV91Top span {
+  color: #B9C7D6;
+}
+
+.timelineV91Controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.timelineV91Controls button {
+  border: 1px solid #21496C;
+  background: #0b233b;
+  color: #F7FBFF;
+  border-radius: 12px;
+  padding: 9px 11px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.timelineV91Controls button:nth-child(3) {
+  background: linear-gradient(135deg,#8BD62F,#22A7E0);
+  color: #061421;
+  border: 0;
+  font-weight: 900;
+}
+
+.timelineV91Controls .danger {
+  border-color: rgba(228,61,48,.5);
+  color: #ffb2aa;
+}
+
+.timelineV91Steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: 8px;
+}
+
+.timelineV91Steps button {
+  background: #0b233b;
+  color: #F7FBFF;
+  border: 1px solid #21496C;
+  border-radius: 14px;
+  padding: 10px;
+  display: grid;
+  gap: 4px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.timelineV91Steps button.active {
+  border-color: #8BD62F;
+  box-shadow: 0 0 0 2px rgba(139,214,47,.25);
+}
+
+.timelineV91Steps button.done {
+  background: #123E2A;
+}
+
+.timelineV91Steps b {
+  color: #8BD62F;
+}
+
+.timelineV91Steps span {
+  font-size: 12px;
+  color: #DCE8F2;
+}
+
+/* Futsal V9.1 — marcas mais visíveis */
+.campo-futsal .campo-svg-pro circle,
+.v7-futsal .campo-svg-pro circle {
+  filter: drop-shadow(0 0 1.5px rgba(255,255,255,.8));
+}
+
+.campo-futsal .campo-svg-pro line,
+.campo-futsal .campo-svg-pro path,
+.campo-futsal .campo-svg-pro rect,
+.v7-futsal .campo-svg-pro line,
+.v7-futsal .campo-svg-pro path,
+.v7-futsal .campo-svg-pro rect {
+  stroke-width: 0.85px;
+}
+
+@media (min-width: 721px) {
+  .player,
+  .v7Player {
+    width: 46px !important;
+    height: 46px !important;
+    font-size: 18px !important;
+  }
+
+  .ball,
+  .v7Ball {
+    width: 36px !important;
+    height: 36px !important;
+  }
+}
+
+@media (max-width: 720px) {
+  .timelineV91Controls {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+}
