@@ -8,7 +8,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "cap:add:android": "npx cap add android",
-    "cap:sync": "npx cap sync android"
+    "cap:sync": "npx cap sync android",
+    "apply-icons": "node scripts/apply-android-icons.cjs"
   },
   "dependencies": {
     "@vitejs/plugin-react": "^4.3.4",

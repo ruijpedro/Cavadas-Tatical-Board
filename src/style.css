@@ -898,3 +898,54 @@ nav {
     height: 28px !important;
   }
 }
+
+
+/* =========================================================
+   V8.1 — Campos profissionais definitivos + logo/ícone
+   ========================================================= */
+.campo.campo-pro,
+.v7Field.campo-pro {
+  position: relative !important;
+  overflow: hidden !important;
+  border: none !important;
+  border-radius: 16px !important;
+  background: transparent !important;
+  box-shadow: 0 18px 40px rgba(0,0,0,.42) !important;
+  aspect-ratio: 120 / 78 !important;
+  width: min(100%, 980px) !important;
+  height: auto !important;
+  min-height: 0 !important;
+}
+.campo.campo-pro::before,
+.campo.campo-pro::after,
+.v7Field.campo-pro::before,
+.v7Field.campo-pro::after { display:none !important; }
+.campo-svg-pro { position:absolute; inset:0; width:100%; height:100%; z-index:1; pointer-events:none; display:block; }
+/* elimina marcações antigas feitas por divs */
+.campo-pro .linha-meio,
+.campo-pro .circulo-centro,
+.campo-pro .grande-area,
+.campo-pro .pequena-area,
+.campo-pro .area-futsal,
+.campo-pro .baliza,
+.campo-pro .rede,
+.campo-pro .linha-ataque,
+.campo-pro .zona,
+.campo-pro .meia-lua,
+.campo-pro .baliza-futsal,
+.campo-pro .baliza-futebol,
+.campo-pro .marca-penalti,
+.campo-pro .v7Line,
+.campo-pro .v7Circle,
+.campo-pro .v7Box,
+.campo-pro .v7Goal,
+.campo-pro .v7FutsalArea { display:none !important; }
+.campo-pro .arrows,
+.campo-pro .v7Arrows { z-index:4 !important; }
+.campo-pro .player,
+.campo-pro .v7Player { z-index:5 !important; }
+.campo-pro .ball,
+.campo-pro .v7Ball { z-index:6 !important; }
+@media (max-width:720px){
+  .campo.campo-pro,.v7Field.campo-pro{ width:100% !important; aspect-ratio:120/78 !important; }
+}

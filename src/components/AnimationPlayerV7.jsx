@@ -2,6 +2,7 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { Pause, Play, RotateCcw, SkipBack, SkipForward, Volume2 } from 'lucide-react'
 import { animacoesDemoV7 } from '../data/animacoesV7'
+import { CampoSVGPro } from './CampoSVGPro'
 
 function clamp(v, a, b){ return Math.max(a, Math.min(b, v)) }
 function lerp(a,b,t){ return a + (b-a)*t }
@@ -22,8 +23,8 @@ function currentObjectPosition(base, phase, progress, id) {
 function CampoAnimado({ modalidade, players, ball, phase, progress }) {
   const ballPos = currentObjectPosition(ball, phase, progress, 'ball')
   return (
-    <div className={`v7Field v7-${modalidade}`}>
-      {modalidade === 'futebol' ? <LinhasFutebol /> : <LinhasFutsal />}
+    <div className={`v7Field v7-${modalidade} campo-pro`}>
+      <CampoSVGPro modalidade={modalidade} />
       <svg className="v7Arrows" viewBox="0 0 100 100" preserveAspectRatio="none">
         <defs>
           <marker id="v7arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">

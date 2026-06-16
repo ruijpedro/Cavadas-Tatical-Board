@@ -10,6 +10,7 @@ import { ImportarEsquema } from './components/ImportarEsquema'
 import { IAVisionAssistida } from './components/IAVisionAssistida'
 import { EsquemasTreinoPanel, gerarJogadoresTreino } from './components/EsquemasTreinoPanel'
 import { AnimationPlayerV7 } from './components/AnimationPlayerV7'
+import { CampoSVGPro } from './components/CampoSVGPro'
 
 const posicoesBase = {
   futebol: [
@@ -58,35 +59,20 @@ function Logo(){
   )
 }
 
-function Campo({ modalidade, children, refCampo, onMouseMove, onMouseUp }) {
-  return <div ref={refCampo} className={`campo campo-${modalidade}`} onMouseMove={onMouseMove} onMouseUp={onMouseUp} onMouseLeave={onMouseUp}>
-    {modalidade === 'futebol' && <LinhasFutebol />}
-    {modalidade === 'futsal' && <LinhasFutsal />}
-    {modalidade === 'voleibol' && <LinhasVoleibol />}
-    {children}
-  </div>
-}
 
-function LinhasFutebol(){
-  return <>
-    <div className="linha-meio" /><div className="circulo-centro" />
-    <div className="grande-area esq" /><div className="grande-area dir" />
-    <div className="pequena-area esq" /><div className="pequena-area dir" />
-    <div className="baliza esq" /><div className="baliza dir" />
-  </>
-}
-function LinhasFutsal(){
-  return <>
-    <div className="linha-meio" /><div className="circulo-centro futsal" />
-    <div className="area-futsal esq" /><div className="area-futsal dir" />
-    <div className="baliza fut esq" /><div className="baliza fut dir" />
-  </>
-}
-function LinhasVoleibol(){
-  return <>
-    <div className="rede" /><div className="linha-ataque esq" /><div className="linha-ataque dir" />
-    {[1,2,3,4,5,6].map(n => <div key={n} className={`zona z${n}`}>{n}</div>)}
-  </>
+function Campo({ modalidade, children, refCampo, onMouseMove, onMouseUp }) {
+  return (
+    <div
+      ref={refCampo}
+      className={`campo campo-${modalidade} campo-pro`}
+      onMouseMove={onMouseMove}
+      onMouseUp={onMouseUp}
+      onMouseLeave={onMouseUp}
+    >
+      <CampoSVGPro modalidade={modalidade} />
+      {children}
+    </div>
+  )
 }
 
 function App(){
