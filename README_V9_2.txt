@@ -1,0 +1,1 @@
+V9.2 base com pacote de ícones integrado e lista de alterações planeadas.
