@@ -44,18 +44,15 @@ const posicoesBase = {
 
 function Logo(){
   return (
-    <div className="brand">
-      <div className="brandIcon" aria-label="Cavadas Tactical">
-        <svg viewBox="0 0 120 120" role="img">
-          <rect x="4" y="4" width="112" height="112" rx="24" fill="#071A2E" stroke="#21496C" strokeWidth="3"/>
-          <path d="M18 83 C34 56, 54 38, 80 27 C96 20, 108 24, 112 36" fill="none" stroke="#8BD62F" strokeWidth="8" strokeLinecap="round"/>
-          <circle cx="38" cy="38" r="15" fill="#22A7E0"/>
-          <path d="M36 25 C51 32, 56 47, 63 62 C70 78, 86 83, 101 85" fill="none" stroke="#FFFFFF" strokeWidth="10" strokeLinecap="round"/>
-          <path d="M25 91 H95" stroke="#8BD62F" strokeWidth="6" strokeLinecap="round"/>
-          <text x="60" y="106" textAnchor="middle" fontSize="22" fontFamily="Arial" fontWeight="900" fill="#FFFFFF">CT</text>
-        </svg>
+    <div className="brand brand-2you">
+      <div className="brandIcon brandIcon-2you" aria-label="2YOU Cavadas Tactical">
+        <img src="logo-2you.png" alt="2YOU" />
       </div>
-      <div><b>CAVADAS</b><span>TACTICAL</span><small>Planear • Animar • Evoluir</small></div>
+      <div>
+        <b>CAVADAS</b>
+        <span>TACTICAL</span>
+        <small>Planear • Animar • Evoluir</small>
+      </div>
     </div>
   )
 }

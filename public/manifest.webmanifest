@@ -1,20 +1,12 @@
 {
   "name": "Cavadas Tactical",
-  "short_name": "Cavadas",
+  "short_name": "Cavadas Tactical",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#071A2E",
   "theme_color": "#071A2E",
   "icons": [
-    {
-      "src": "./icon.png",
-      "sizes": "512x512",
-      "type": "image/png"
-    },
-    {
-      "src": "./logo-cavadas-tactical.png",
-      "sizes": "512x512",
-      "type": "image/png"
-    }
+    { "src": "icon.png", "sizes": "1024x1024", "type": "image/png" },
+    { "src": "logo-2you.png", "sizes": "1024x1024", "type": "image/png" }
   ]
 }

@@ -1084,3 +1084,92 @@ nav {
     grid-template-columns: 1fr 1fr;
   }
 }
+
+
+/* =========================================================
+   V9.3 — Futsal clean + identidade 2YOU
+   ========================================================= */
+
+/* Header 2YOU */
+.brand-2you {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brandIcon-2you {
+  width: 64px !important;
+  height: 64px !important;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #071A2E;
+  border: 1px solid #21496C;
+  display: grid;
+  place-items: center;
+}
+
+.brandIcon-2you img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Fundo futsal mais profissional */
+.campo-futsal.campo-pro,
+.v7-futsal.campo-pro {
+  background:
+    radial-gradient(circle at 50% 50%, rgba(255,255,255,.08), transparent 58%),
+    linear-gradient(135deg,#2478bf,#1265ad) !important;
+}
+
+/* O campo antigo fica totalmente desligado quando existe campo-pro */
+.campo-pro .linha-meio,
+.campo-pro .circulo-centro,
+.campo-pro .area-futsal,
+.campo-pro .baliza,
+.campo-pro .baliza-futsal,
+.campo-pro .grande-area,
+.campo-pro .pequena-area,
+.campo-pro .marca-penalti,
+.campo-pro .meia-lua,
+.campo-pro .baliza-futebol,
+.campo-pro .v7Line,
+.campo-pro .v7Circle,
+.campo-pro .v7FutsalArea,
+.campo-pro .v7Goal {
+  display: none !important;
+}
+
+/* Evita pseudo-elementos antigos a criarem pontos/linhas adicionais */
+.campo-futsal.campo-pro::before,
+.campo-futsal.campo-pro::after,
+.v7-futsal.campo-pro::before,
+.v7-futsal.campo-pro::after {
+  display: none !important;
+  content: none !important;
+}
+
+.campo-svg-pro {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1 !important;
+  pointer-events: none;
+  display: block;
+  shape-rendering: geometricPrecision;
+}
+
+.futsal-clean-v93 * {
+  vector-effect: non-scaling-stroke;
+}
+
+.player,
+.v7Player {
+  z-index: 5 !important;
+}
+
+.ball,
+.v7Ball {
+  z-index: 6 !important;
+}
