@@ -11,37 +11,63 @@ permissions:
 jobs:
   build-android:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
+
       - name: Install dependencies
         run: npm install
+
       - name: Build WebApp
         run: npm run build
+
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: 21
-      - name: Add Android platform if missing
+
+      - name: Ensure Android platform is valid
         run: |
-          if [ ! -d "android" ]; then
+          if [ ! -f "android/gradlew" ]; then
+            echo "android/gradlew não existe. A recriar plataforma Android..."
+            rm -rf android
             npx cap add android
+          else
+            echo "Plataforma Android válida encontrada."
           fi
+
       - name: Capacitor sync Android
         run: npx cap sync android
+
       - name: Apply Cavadas icons
-        run: npm run apply-icons
+        run: |
+          if [ -d "V9_2_ICON_2YOU_PACKAGE" ]; then
+            echo "A aplicar pacote de ícones 2YOU..."
+            find V9_2_ICON_2YOU_PACKAGE -type d -name "mipmap-*" | while read dir; do
+              base=$(basename "$dir")
+              mkdir -p "android/app/src/main/res/$base"
+              cp -R "$dir"/* "android/app/src/main/res/$base/" || true
+            done
+          fi
+
+          if [ -f "public/icon.png" ]; then
+            mkdir -p android/app/src/main/res/drawable
+            cp public/icon.png android/app/src/main/res/drawable/icon.png || true
+          fi
 
       - name: Build debug APK
         run: |
           cd android
-          chmod +x gradlew
+          chmod +x ./gradlew
           ./gradlew assembleDebug
+
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
