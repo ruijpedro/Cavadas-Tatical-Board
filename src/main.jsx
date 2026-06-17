@@ -79,9 +79,8 @@ function App(){
   const dragRef = useRef(null)
   const [tab, setTab] = useState('quadro')
   const [modalidade, setModalidade] = useState('futsal')
-  
-  
-  const [configJogadoresV94, setConfigJogadoresV94] = useState({ atacantes: 7, defensores: 6, guardaRedes: 1 })const [configTreino, setConfigTreino] = useState({ tipoTreino: 'campo', atacantes: 7, defensores: 6, guardaRedes: true })
+  const [configJogadoresV94, setConfigJogadoresV94] = useState({ atacantes: 7, defensores: 6, guardaRedes: 1 })
+  const [configTreino, setConfigTreino] = useState({ tipoTreino: 'campo', atacantes: 7, defensores: 6, guardaRedes: true })
   const [players, setPlayers] = useState(posicoesBase.futsal)
   const [ball, setBall] = useState({ x:50, y:50 })
   const [mode, setMode] = useState('move')
@@ -266,8 +265,6 @@ function App(){
     setNotes(`${animacao.nome}\n\n${animacao.descricao || ''}\n\nAnimação V7 aplicada ao quadro tático.`)
     setTab('quadro')
   }
-
-
 
   function novaFaseTimeline(){
     const nova = {
