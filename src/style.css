@@ -1173,3 +1173,13 @@ nav {
 .v7Ball {
   z-index: 6 !important;
 }
+
+.playerControlV94{background:#0b233b;border:1px solid #21496C;border-radius:18px;padding:12px;margin:12px 0;display:grid;gap:10px}
+.playerControlV94 h3{color:#8BD62F;display:flex;align-items:center;gap:8px;margin:0 0 4px}
+.counterRowV94{display:grid;grid-template-columns:1fr auto;align-items:center;gap:10px;color:#DCE8F2;font-weight:800}
+.counterBoxV94{display:grid;grid-template-columns:38px 48px 38px;align-items:center;background:#061421;border:1px solid #21496C;border-radius:14px;overflow:hidden}
+.counterBoxV94 button{border:0;background:#0b233b;color:#F7FBFF;min-height:38px;cursor:pointer;display:grid;place-items:center}
+.counterBoxV94 b{text-align:center;color:#F7FBFF;font-size:18px}
+.totalPlayersV94{color:#B9C7D6;background:rgba(139,214,47,.08);border:1px solid rgba(139,214,47,.28);border-radius:12px;padding:8px 10px}
+.totalPlayersV94 strong{color:#8BD62F}
+.applyPlayersV94{border:0;background:linear-gradient(135deg,#8BD62F,#22A7E0);color:#061421;font-weight:900;border-radius:14px;padding:12px;display:inline-flex;align-items:center;justify-content:center;gap:8px;cursor:pointer}

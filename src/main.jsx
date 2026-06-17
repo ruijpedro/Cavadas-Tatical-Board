@@ -12,6 +12,7 @@ import { EsquemasTreinoPanel, gerarJogadoresTreino } from './components/Esquemas
 import { AnimationPlayerV7 } from './components/AnimationPlayerV7'
 import { CampoSVGPro } from './components/CampoSVGPro'
 import { TimelineFases } from './components/TimelineFases'
+import { ControloJogadores, gerarJogadoresPorControlo } from './components/ControloJogadores'
 
 const posicoesBase = {
   futebol: [
@@ -79,7 +80,8 @@ function App(){
   const [tab, setTab] = useState('quadro')
   const [modalidade, setModalidade] = useState('futsal')
   
-  const [configTreino, setConfigTreino] = useState({ tipoTreino: 'campo', atacantes: 7, defensores: 6, guardaRedes: true })
+  
+  const [configJogadoresV94, setConfigJogadoresV94] = useState({ atacantes: 7, defensores: 6, guardaRedes: 1 })const [configTreino, setConfigTreino] = useState({ tipoTreino: 'campo', atacantes: 7, defensores: 6, guardaRedes: true })
   const [players, setPlayers] = useState(posicoesBase.futsal)
   const [ball, setBall] = useState({ x:50, y:50 })
   const [mode, setMode] = useState('move')
@@ -299,6 +301,17 @@ function App(){
   const filtrados = bibliotecaProfissional.filter(x => `${x.origem} ${x.modalidade} ${x.categoria} ${x.titulo} ${x.objetivo}`.toLowerCase().includes(search.toLowerCase()))
   const visiblePaths = paths.filter(p => p.phase === phase)
 
+
+  function aplicarJogadoresV94(){
+    const novos = gerarJogadoresPorControlo({ modalidade, ...configJogadoresV94 })
+    setPlayers(novos)
+    setBall({ x: modalidade === 'futsal' ? 50 : 8, y: modalidade === 'futsal' ? 50 : 88 })
+    setPaths([])
+    setPhase(0)
+    setNotes(`Jogadores atualizados automaticamente.\n\nAtacantes: ${configJogadoresV94.atacantes}\nDefensores: ${configJogadoresV94.defensores}\nGuarda-redes: ${configJogadoresV94.guardaRedes}\nTotal: ${configJogadoresV94.atacantes + configJogadoresV94.defensores + configJogadoresV94.guardaRedes}`)
+  }
+
+
   return <div className="app">
     <header className="topbar">
       <Logo />
@@ -328,6 +341,12 @@ function App(){
           config={configTreino}
           setConfig={setConfigTreino}
           onAplicar={aplicarEsquemaTreino}
+        />
+        <ControloJogadores
+          modalidade={modalidade}
+          config={configJogadoresV94}
+          setConfig={setConfigJogadoresV94}
+          onAplicar={aplicarJogadoresV94}
         />
 
         <h3>Ferramentas</h3>
