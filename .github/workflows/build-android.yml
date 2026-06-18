@@ -11,9 +11,10 @@ permissions:
 jobs:
   build-android:
     runs-on: ubuntu-latest
+    timeout-minutes: 35
 
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: Setup Node.js
@@ -21,8 +22,13 @@ jobs:
         with:
           node-version: 20
 
+      - name: Reset npm cache
+        run: |
+          npm cache clean --force
+          rm -rf node_modules
+
       - name: Install dependencies
-        run: npm install
+        run: npm install --no-audit --no-fund --legacy-peer-deps
 
       - name: Build WebApp
         run: npm run build
@@ -33,7 +39,7 @@ jobs:
           distribution: temurin
           java-version: 21
 
-      - name: Ensure Android platform is valid
+      - name: Recreate Android platform if incomplete
         run: |
           if [ ! -f "android/gradlew" ]; then
             echo "android/gradlew não existe. A recriar plataforma Android..."
@@ -46,20 +52,18 @@ jobs:
       - name: Capacitor sync Android
         run: npx cap sync android
 
-      - name: Apply Cavadas icons
+      - name: Apply Android icons
         run: |
+          if [ -f "scripts/apply-android-icons.cjs" ]; then
+            node scripts/apply-android-icons.cjs || true
+          fi
+
           if [ -d "V9_2_ICON_2YOU_PACKAGE" ]; then
-            echo "A aplicar pacote de ícones 2YOU..."
             find V9_2_ICON_2YOU_PACKAGE -type d -name "mipmap-*" | while read dir; do
               base=$(basename "$dir")
               mkdir -p "android/app/src/main/res/$base"
               cp -R "$dir"/* "android/app/src/main/res/$base/" || true
             done
-          fi
-
-          if [ -f "public/icon.png" ]; then
-            mkdir -p android/app/src/main/res/drawable
-            cp public/icon.png android/app/src/main/res/drawable/icon.png || true
           fi
 
       - name: Build debug APK
@@ -68,7 +72,7 @@ jobs:
           chmod +x ./gradlew
           ./gradlew assembleDebug
 
-      - name: Upload APK artifact
+      - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: Cavadas-Tactical-APK

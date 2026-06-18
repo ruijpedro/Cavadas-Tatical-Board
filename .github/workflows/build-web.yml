@@ -1,4 +1,4 @@
-name: Build Cavadas Tactical Web
+name: Build Cavadas Tactical WebApp
 
 on:
   push:
@@ -11,29 +11,54 @@ permissions:
   id-token: write
 
 concurrency:
-  group: pages
+  group: cavadas-tactical-pages
   cancel-in-progress: false
 
 jobs:
   build-web:
     runs-on: ubuntu-latest
+    timeout-minutes: 25
+
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: 20
-      - run: npm install
-      - run: npm run build
-      - uses: actions/upload-pages-artifact@v3
+
+      - name: Reset npm cache
+        run: |
+          npm cache clean --force
+          rm -rf node_modules
+
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund --legacy-peer-deps
+
+      - name: Build WebApp
+        run: npm run build
+
+      - name: Upload WebApp dist
+        uses: actions/upload-artifact@v4
+        with:
+          name: Cavadas-Tactical-WebApp-dist
+          path: dist
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
         with:
           path: dist
 
-  deploy:
+  deploy-pages:
     needs: build-web
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
+
     steps:
-      - id: deployment
+      - name: Deploy GitHub Pages
+        id: deployment
         uses: actions/deploy-pages@v4
