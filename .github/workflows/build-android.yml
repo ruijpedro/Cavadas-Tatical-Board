@@ -22,16 +22,20 @@ jobs:
         with:
           node-version: 20
 
-      - name: Reset npm cache
+      - name: Reset npm
         run: |
+          npm install -g npm@10.9.2
           npm cache clean --force
-          rm -rf node_modules
+          rm -rf node_modules package-lock.json
 
       - name: Install dependencies
-        run: npm install --no-audit --no-fund --legacy-peer-deps
+        run: npm install --include=dev --no-audit --no-fund --legacy-peer-deps --no-package-lock
+
+      - name: Verify Vite
+        run: npx vite --version
 
       - name: Build WebApp
-        run: npm run build
+        run: npx vite build
 
       - name: Setup Java
         uses: actions/setup-java@v4
